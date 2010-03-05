@@ -1,0 +1,5 @@
+this is an early (yet functioning) version of the 4julia raytracer,
+that renders quaternion julia fractals. It needs libpng, readline,
+and SDL. compile it, run it, and type "help".
+
+enjoy!
