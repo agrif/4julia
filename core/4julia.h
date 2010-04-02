@@ -125,6 +125,7 @@ double j_raytracer_get_epsilon_minimum(); /* wow actually a max, huh */
 struct j_raycast_s
 {
 	unsigned int hit; /* 1 when we hit something */
+	unsigned int itercount; /* how many iters we went through */
 	j_vector point; /* the point we hit */
 	j_vector normal; /* the normal of the surface we hit */
 };

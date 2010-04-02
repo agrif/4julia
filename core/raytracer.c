@@ -288,6 +288,9 @@ j_raycast j_raytracer_cast(j_vector origin, j_vector ray, unsigned int gen_norma
 	double curlength = 0;
 	j_vector curpos = origin;
 	
+	j_raycast r;
+	r.itercount = 0;
+	
 	double epsilon;
 	double d;
 	while (curlength < stoplength)
@@ -305,12 +308,11 @@ j_raycast j_raytracer_cast(j_vector origin, j_vector ray, unsigned int gen_norma
 			d = 1;
 		}
 		
+		r.itercount++;
 		curlength += d;
 		curpos = j_vector_add(curpos, j_vector_multiply(ray, d));
 	}
-	
-	j_raycast r;
-	
+		
 	if (curlength >= stoplength)
 	{
 		r.hit = 0;
@@ -346,9 +348,11 @@ j_vector j_raytracer_shader(j_raycast cast)
 		r.w = 0;
 		return r;
 	}
+
 	r.x = 0;
 	r.y = 0;
 	r.z = 0;
+
 	unsigned int lights = j_raytracer_get_lights();
 	unsigned int i;
 	for (i = 0; i < lights; ++i)
@@ -360,7 +364,8 @@ j_vector j_raytracer_shader(j_raycast cast)
 		{
 			r = j_vector_add(r, j_vector_multiply(l.color, lambert));
 		}
-	}
+    }
+	r = j_vector_multiply(r, 1.0 - cast.itercount / 30.0);
 	r.w = 1;
 	return r;
 }
