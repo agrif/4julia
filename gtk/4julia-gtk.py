@@ -47,6 +47,7 @@ class JuliaGtk:
 		self.send("set-slice %f %f %f %f %f" % tuple(map(lambda x: self.wTree.get_widget("slice_" + x).get_value(), ["x", "y", "z", "w", "d"])))
 		self.send("set-iterations %i" % (self.wTree.get_widget("iterations").get_value(),))
 		self.send("set-camera %f %f %f %f" % tuple(map(lambda x: self.wTree.get_widget("camera_" + x).get_value(), ["radius", "theta", "phi", "fov"])))
+		self.send("set-occlusion %f %f" % tuple(map(lambda x: self.wTree.get_widget("raytracer_occlusion_" + x).get_value(), ['maximum', 'strength'])))
 		self.send("set-epsilon %f %f" % tuple(map(lambda x: self.wTree.get_widget("epsilon_" + x).get_value(), ["ratio", "minimum"])))
 		self.send("set-size %i" % (self.wTree.get_widget("raytracer_size").get_value(),))
 		self.send("set-supersampling %i" % (self.wTree.get_widget("raytracer_supersampling").get_value(),))
@@ -96,6 +97,8 @@ class JuliaGtk:
 				self.wTree.get_widget("iterations").set_value(int(args[0]))
 			elif c == "set-camera":
 				self.set_values("camera_", ["radius", "theta", "phi", "fov"], args)
+			elif c == "set-occlusion":
+				self.set_values("raytracer_occlusion_", ['maximum', 'strength'], args)
 			elif c == "set-epsilon":
 				self.set_values("epsilon_", ["ratio", "minimum"], args)
 			elif c == "set-size":
