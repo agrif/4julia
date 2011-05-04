@@ -118,6 +118,10 @@ j_vector j_raytracer_get_image_ray(double x, double y);
 void j_raytracer_set_supersampling(unsigned int samples);
 unsigned int j_raytracer_get_supersampling();
 
+void j_raytracer_set_occlusion(double max, double strength);
+double j_raytracer_get_occlusion_maximum();
+double j_raytracer_get_occlusion_strength();
+
 void j_raytracer_set_epsilon(double e_ratio, double e_min);
 double j_raytracer_get_epsilon_ratio();
 double j_raytracer_get_epsilon_minimum(); /* wow actually a max, huh */

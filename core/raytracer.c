@@ -254,6 +254,26 @@ unsigned int j_raytracer_get_supersampling()
 	return _j_raytracer_supersampling;
 }
 
+/* occlusion */
+
+double _j_raytracer_occlusion_max, _j_raytracer_occlusion_strength;
+
+void j_raytracer_set_occlusion(double max, double strength)
+{
+	_j_raytracer_occlusion_max = max;
+	_j_raytracer_occlusion_strength = strength;
+}
+
+double j_raytracer_get_occlusion_maximum()
+{
+	return _j_raytracer_occlusion_max;
+}
+
+double j_raytracer_get_occlusion_strength()
+{
+	return _j_raytracer_occlusion_strength;
+}
+
 /* epsilon */
 
 double _j_raytracer_epsilon_minimum, _j_raytracer_epsilon_ratio;
@@ -365,7 +385,9 @@ j_vector j_raytracer_shader(j_raycast cast)
 			r = j_vector_add(r, j_vector_multiply(l.color, lambert));
 		}
     }
-	r = j_vector_multiply(r, 1.0 - cast.itercount / 30.0);
+	double occlusion = 1.0 - (cast.itercount * _j_raytracer_occlusion_strength);
+	occlusion = 1.0 - _j_raytracer_occlusion_max + (occlusion * _j_raytracer_occlusion_max);
+	r = j_vector_multiply(r, occlusion);
 	r.w = 1;
 	return r;
 }
@@ -403,6 +425,7 @@ void j_raytracer_initialize()
 	_j_raytracer_lights = NULL;
 	j_raytracer_add_light(0, 0, j_vector_create(0.3, 0.3, 0.3, 0));
 	j_raytracer_set_image_size(256);
+	j_raytracer_set_occlusion(0.8, 1.0/30);
 	j_raytracer_set_epsilon(.1, .00000001);
 	j_raytracer_set_supersampling(1);
 }

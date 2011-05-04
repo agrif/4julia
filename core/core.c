@@ -79,6 +79,9 @@ struct _j_command_s _j_commands[] = {
 {"get-size", "", "get the current image size"},
 {"set-supersampling", "i", "sample each pixel [1] times, then average"},
 {"get-supersampling", "", "get the number of samples per pixel"},
+{"set-occlusion", "ff", "set occlusion maximum to [1], and strength to [2]"},
+{"get-occlusion-maximum", "", "get the occlusion maximum"},
+{"get-occlusion-strength", "", "get the occlusion strength"},
 {"set-epsilon", "ff", "set epsilon to [1] * pixel size, or [2], whichever is greater"},
 {"get-epsilon-ratio", "", "get the epsilon ratio"},
 {"get-epsilon-maximum", "", "get the epsilon maximum"},
@@ -284,6 +287,9 @@ unsigned int j_execute(const char* command)
 	_J_EXECUTE("get-size", printf("%i\n", j_raytracer_get_image_size()))
 	_J_EXECUTE("set-supersampling", j_raytracer_set_supersampling(values[0].integer))
 	_J_EXECUTE("get-supersampling", printf("%i\n", j_raytracer_get_supersampling()))
+	_J_EXECUTE("set-occlusion", j_raytracer_set_occlusion(values[0].floating, values[1].floating))
+	_J_EXECUTE("get-occlusion-maximum", printf("%f\n", j_raytracer_get_occlusion_maximum()))
+	_J_EXECUTE("get-occlusion-strength", printf("%f\n", j_raytracer_get_occlusion_strength()))
 	_J_EXECUTE("set-epsilon", j_raytracer_set_epsilon(values[0].floating, values[1].floating))
 	_J_EXECUTE("get-epsilon-ratio", printf("%f\n", j_raytracer_get_epsilon_ratio()))
 	_J_EXECUTE("get-epsilon-maximum", printf("%f\n", j_raytracer_get_epsilon_minimum()))
