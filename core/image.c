@@ -1,6 +1,6 @@
 #include "4julia.h"
 
-#include "libpng/png.h"
+#include "png.h"
 
 #include <pthread.h>
 #include <sys/ioctl.h>
