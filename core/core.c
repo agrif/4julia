@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #define _J_BUFSIZE 128
 

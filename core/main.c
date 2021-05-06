@@ -1,6 +1,7 @@
 #include "4julia.h"
 
-#include "readline/readline.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
 #include <stdio.h>
 #include <time.h>
